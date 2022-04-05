@@ -1,0 +1,27 @@
+\documentclass[11pt]{article}
+
+\input{packages}
+
+% REPORT START
+\begin{document}
+\include{title}
+
+\pagenumbering{gobble} % Remove page numbering
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\pagenumbering{arabic} % Add page numbering
+
+\input{sections/security_report}
+
+\newpage
+
+\nocite{*}
+\printbibliography
+
+
+\end{document}
