@@ -1,10 +1,13 @@
 \documentclass[11pt]{article}
-
+\usepackage[table,xcdraw]{xcolor}
 \input{packages}
 
 % REPORT START
+
+\makeglossaries
 \begin{document}
 \include{title}
+\input{sections/Glossary}
 
 \pagenumbering{gobble} % Remove page numbering
 
@@ -16,12 +19,26 @@
 
 \pagenumbering{arabic} % Add page numbering
 
-\input{sections/security_report}
+\input{sections/01_SystemPerspective}
+\newpage
 
+\input{sections/02_ProcessPerspective}
+\newpage
+
+\input{sections/03_LessonsLearnedPerspective}
+
+
+
+\newpage
+\gls{meme}
 \newpage
 
 \nocite{*}
+\printglossary[type=\acronymtype]
 \printbibliography
 
+\newpage
+
+\input{sections/Appendices}
 
 \end{document}

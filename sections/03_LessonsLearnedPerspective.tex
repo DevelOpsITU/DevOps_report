@@ -1,0 +1,30 @@
+\section{Lessons learned perspective}
+%Kaare vil gerne skrive om den 
+% Taken from: https://github.com/itu-devops/lecture_notes/blob/39aaac80478c8f90870269760864ff32c23b5cce/REPORT.md
+% OBS: THIS IS THE REPORT TEMPLATE FROM LAST YEAR
+
+% Describe the biggest issues, how you solved them, and which are major lessons learned with regards to:
+
+%     evolution and refactoring
+%     operation, and
+%     maintenance
+
+% of your ITU-MiniTwit systems. Link back to respective commit messages, issues, tickets, etc. to illustrate these.
+
+% Also reflect and describe what was the "DevOps" style of your work. For example, what did you do differently to previous development projects and how did it work?
+Our largest DevOps challenge throughout the project, was the necessary migration of our database. The problem originated early after the simulator was started. A crash was noticed \cite{issue83}, seemingly caused by a large tweet, 8000+ characters. It's discovery was through gin's automatic logging, visible in the docker logs found via ssh, since no logging nor monitoring existed at the time. The crash was repetitive, some times docker figured out how to restart the container other times crashing, causing everything to disappear, including the current SQLite database file. 
+
+In a subsequent issue\cite{issue86}, it was discovered through local bug reproduction, that SQLite leaked memory, due to too many open connections. We'd talked from the beginning of the project about separating the database and introducing a database abstraction layer \cite{issue37}, and due to the crashes it seemed to be time for the migration. A few SQL queries had to be changed, in particular ones querying the \textbf{user} table, because PostGRE has its own user table more prominent than ours. More concerning was the discovery, that all passwords could not be brought over due to them being binary data (BLOB), which has no direct translation into PostGRE's types, also discussed in the issue regarding the migration \cite{issue92}. 
+
+After testing everything locally, and without complications, we had the belief everything would go smoothly with production, however luckily we realised we had not migrated any mysterious password hashes in our local test, since the mysterious ones only were made in production\cite{issue109}. We found no way to translate the BLOB data, and decided to replace all passwords to become the same, so we could move all our data. In a real life scenario we decided we would ask all users to change their password. 
+
+The migration was a success, however, we noticed through the now implemented simple logging, that a large amount of errors were returned to the simulator\cite{issue112}. Worse was when we discovered looking into the follower table that multiple entries were nothing but zeroes. It seemed like no follow request returned OK. Resources was put into discovering the origin, which conclusively became that the simulator only used a small batch of users for following and un-following, who's registrations we had missed during our downtime and deletions of our database from crashes. The solution became introducing "\textit{a dirty hack}", that would register users that tried to follow. Our excuse for this smelly code, was that this would never happen in a real world scenario.
+
+We learned 
+
+\subsection{Evolution and refactoring}
+% ideas. Database problem/migration (minitwit crashes, 0 in all follower tables). Hack(s) introduction. Latency problem (database problem). DigitalOcean Memory problems. CI/CD change. Cookies not working in production. Password & API key leaking.
+
+\subsection{Operation and maintenance}
+Towards the end of the project, we noticed an unusual long request latency for the frontpage, and a constant crashing monitoring server. We concluded the bottleneck was the database\cite{issue182}. Either an odd query or the lack of an index could cause a slow lookup. The monitoring server crashes constantly presumably due to missing memory. Through the Digital Ocean monitoring it was visible, that 100 percent of the memory was in use when querying Prometheus from Grafana\cite{issue183}, causing the service to become unusable. The take away is, that for monitoring/logging services, more memory that usual is needed, due to a lot of data being held in memory when querying.
+

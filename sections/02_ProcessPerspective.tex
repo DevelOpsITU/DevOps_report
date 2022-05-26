@@ -1,0 +1,161 @@
+    \section{Process' perspective}
+
+% Taken from: https://github.com/itu-devops/lecture_notes/blob/39aaac80478c8f90870269760864ff32c23b5cce/REPORT.md
+% OBS: THIS IS THE REPORT TEMPLATE FROM LAST YEAR
+
+% Process' perspective
+
+% A description and illustration of:
+
+%     How do you interact as developers?
+%     How is the team organized?
+%     A complete description of stages and tools included in the CI/CD chains.
+%         That is, including deployment and release of your systems.
+%     Organization of your repositor(ies).
+%         That is, either the structure of of mono-repository or organization of artifacts across repositories.
+%         In essence, it has to be be clear what is stored where and why.
+%     Applied branching strategy.
+%     Applied development process and tools supporting it
+%         For example, how did you use issues, Kanban boards, etc. to organize open tasks
+%     How do you monitor your systems and what precisely do you monitor?
+%     What do you log in your systems and how do you aggregate logs?
+%     Brief results of the security assessment.
+%     Applied strategy for scaling and load balancing.
+
+% In essence it has to be clear how code or other artifacts come from idea into the running system and everything that happens on the way.
+
+\subsection{Interaction as developers}
+Communication and interaction between team members have been moderately split between informal, formal, synchronous and asynchronous communication throughout the entire course. Initially we used Microsoft Teams and GitHub issues for asynchronous, formal and informal communication. However, we quickly realised that teams would not be an applicable solution for our project. This realisation came as a consequence of team members not responding/not being active on teams for several days (even when we faced an imminent problem that caused our application to unexpectedly go offline!). Consequently, we looked into alternative solutions and decided that Discord would be a much better option, since the majority of the team were quite frequently online on Discord and thus would be easier to reach.\\
+
+In regard to synchronous interaction and communication, we decided that team meetings would be held on Tuesdays after the lecture. The meetings would usually cover three topics: the distributed work we did the previous week, what needs to be accomplished to reach this week's milestone and finally how the issues for this week would be distributed between team members. In continuation of these meetings, we would work closely together for several hours and these sessions would be based on pair/mob programming, where we would try to solve the current week and last week's issues together. Furthermore, we also had several distributed meetings on teams and discord. These meetings would follow the same work ethic as the physical ones.\\
+
+Regarding the social atmosphere in the group, it can easily be said that we have high psychological safety, in the sense that team members are not afraid to speak up and voice their opinions. In general, this made the process much more fun and interactive and also contributed to a more solid teamwork and project. The main ethic behind delivering code and generally working on the project is full transparency, i.e it should be easy to continue to work on tasks that are not yet finished. This was mainly accomplished by documenting the work done on the issue at hand, but also through the weekly team meetings.
+
+\subsection{Team organisation}
+The team is organised with all members having equal authority. Project scope and project requirements are set by Helge and Mircea, as well as extra needs requested by the group. 
+
+\subsection{Description of CI/CD chains}
+%A complete description of stages and tools included in the CI/CD chains
+%- That is, including deployment and release of your systems.
+Github Actions is used for CI. TravisCI was initially used, since this was well-documented and also separated the deployment from the codebase by not having everything at Github\cite{issue58}. However, as the free plan on TravisCI expired, CI chain was moved to Github actions, as developers were familiar with this, as well as Github actions providing a faster pipeline (mainly spinning up VM's) \cite{issue117}.\\
+
+\subsection{CI Chain}
+CI chain is setup according to the operation on branches, such that \cite{issue69}\cite{issue117}: 
+\begin{itemize}
+    \item Pull request to dev
+    \begin{itemize}
+        \item Linting, build tests and system test
+    \end{itemize}
+    
+    \item Commit to dev (merge request accepted)
+    \begin{itemize}
+        \item Linting, build docker image, test docker image, publish with dev tag
+    \end{itemize}
+    
+    \item Commit to main (merge request accepted)
+    \begin{itemize}
+        \item Linting, build docker image, test docker image, publish with latest tag
+    \end{itemize}
+\end{itemize}
+
+
+Example of a CI run \cite{ci_run_example_1}: 
+\begin{itemize}
+    \item LintAndTest
+    \begin{itemize}
+        \item go lint \cite{golinter.sh}
+        \item shellcheck \cite{shellchecker.sh}
+        \item tests \todo{how does this look?}
+    \end{itemize}
+    \item Scancode \cite{scancode_dockerfile}
+    \item Docker \todo{how does this look?}
+\end{itemize}
+
+Code linting, code analysis, vulnerability checks \cite{issue113}
+SonarCloud \cite{issue114}. \todo{write about this}
+
+
+\subsection{Organisation of repositories}
+%- That is, either the structure of of mono-repository or organization of artifacts across repositories.
+%- In essence, it has to be be clear what is stored where and why.
+
+The project is split up into three repositories.
+\begin{itemize}
+    \item Minitwit (Main Application)
+    \item MiniTwitDevelopment (Docker containers for use in development environment)
+    \item ServerDeployment (Files for setup and maintenance of server applications)
+\end{itemize}
+\cite{contributing.md}
+
+\subsection{Applied branching strategy}
+\begin{table}[H]
+\begin{tabular}{|
+>{\columncolor[HTML]{FFFFFF}}l |
+>{\columncolor[HTML]{FFFFFF}}l |}
+\hline
+main & \begin{tabular}[c]{@{}l@{}}Used as base branch, from which releases are created. \\ This must always be buildable and runnable.\end{tabular}                                                                                                    \\ \hline
+dev  & \begin{tabular}[c]{@{}l@{}}Used for development. \\ This must always be buildable and runnable. \\ Every branch (except main) is derived from this branch.\end{tabular}                                                                         \\ \hline
+*    & \begin{tabular}[c]{@{}l@{}}Branches derived from dev have the following templates, depending on the issue's topic:\\ - features/\#(ISSUEID)-(ISSUE\_TITLE / RELEVANT\_TITLE)\\ - bugs/\#(ISSUEID)-(ISSUE\_TITLE / RELEVANT\_TITLE)\end{tabular} \\ \hline
+\end{tabular}
+\caption{Branching Strategy \cite{contributing.md}}
+\label{tab:branching_strategy}
+\end{table}
+
+\subsection{Applied development process}
+%Applied development process and tools supporting it
+%- For example, how did you use issues, Kanban boards, etc. to organize open tasks
+
+For issues Github's own issue management is used. Most issues are created and managed in \textit{MiniTwit} repository for simplified structure and readability. Issues are then assigned to individual members, whom are responsible for the issue (with assistance from other team members). \\
+Commits are expected to happen regularly and to be descriptive. The commits' subject is limited to 50 chars, with few exceptions. Large commits are to be described in bulletpoints. \\
+Pull-requests are to not be reviewed by the author. \cite{contributing.md} \\
+
+
+
+
+\subsection{Monitoring of MiniTwit}
+%How do you monitor your systems and what precisely do you monitor?
+
+To monitor Minitwit, Prometheus and Grafana are used. They are both monitoring systems, however they have different options that allows for indepth monitoring. \\
+Prometheus is mainly used due to: \cite{issue99}
+\begin{itemize}
+    \item Free
+    \item Previous experience
+    \item Extensive documentation 
+    \item Integrates well with Grafana
+\end{itemize} 
+Grafana is mainly used due to: \cite{issue100}
+\begin{itemize}
+    \item Prometheus is not rich in visualisation options, thus needed a better solution for this
+    \item Previous experience
+    \item Extensive documentation
+    \item Free
+    \item Integrates well with Prometheus
+    \item Works well with Loki
+\end{itemize} 
+
+Monitoring is used to provide information about: Business Intelligence\cite{issue103}\cite{issue151}, Endpoints\cite{issue103}\cite{issue121}, Simulator\cite{issue124}, Logging\cite{issue126} (See Appendix \ref{app:grafana_dashboards} for visual of graphs)\\
+\todo{heatmaps (issue 135)}
+
+All monitoring information can be viewed at three endpoints: \textit{grafana.thomsen-it.dk}, \textit{prometheus.thomsen-it.dk} and \textit{monitoring.thomsen-it.dk}\cite{issue105}.
+\todo{Maybe find newer photos of updated dashboards}
+\todo{Should appendix have cites too?}
+
+Alerts are set up via discord to notify of severe changes in data. Currently only Disk space, Ram usage, Response time, Errors are setup with alerts. \cite{issue150}
+
+
+\subsection{Logging of MiniTwit}
+%What do you log in your systems and how do you aggregate logs?
+Logging of the application follows the structure: \\
+$\{"level":"info","time":"2022-03-04T16:48:07Z",\\"message":"Starting\: MiniTwit\: application\: startup\: checks"\}$\cite{issue90} (See appendix \ref{app:logging_structure}).
+
+For logging we use Loki, which is log aggregation system, that is inspired by prometheus. Since it is inspired by Prometheus and also started at Grafana Labs, it integrated well with grafana, aswell as developers already having experience with Prometheus from previous and current project. 
+
+\subsection{Security assessment}
+% Christian
+%Brief results of the security assessment.
+
+
+\subsection{Applied strategy for scaling and load balancing}
+The application server is scaled by having two application servers hosted. To manage these two, a load balancer is setup up to direct traffic between them. \cite{issue175} \\
+The use of load balancer and two application servers also supplies the purpose of blue green deployment, such that one server at a time can be taken down, updated and put back online. This guarantees that at least one server will be active at all times \cite{blue_green_deployment}.
+

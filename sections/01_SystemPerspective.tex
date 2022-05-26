@@ -1,0 +1,57 @@
+\section{System's Perspective}
+% Jonas will start here
+
+% Taken from: https://github.com/itu-devops/lecture_notes/blob/39aaac80478c8f90870269760864ff32c23b5cce/REPORT.md
+% OBS: THIS IS THE REPORT TEMPLATE FROM LAST YEAR
+
+% A description and illustration of the:
+
+%     Design of your ITU-MiniTwit systems
+%     Architecture of your ITU-MiniTwit systems
+%     All dependencies of your ITU-MiniTwit systems on all levels of abstraction and development stages.
+%         That is, list and briefly describe all technologies and tools you applied and depend on.
+%     Important interactions of subsystems
+%     Describe the current state of your systems, for example using results of static analysis and quality assessment systems.
+%     Finally, describe briefly, if the license that you have chosen for your project is actually compatible with the licenses of all your direct dependencies.
+
+% Double check that for all the weekly tasks (those listed in the schedule) you include the corresponding information.
+
+% MSc students remember to argue for the choice of technologies and decisions for at least all cases for which we asked you to do so in the tasks at the end of each session.
+
+
+The system is sectioned of into different services. The services are "Application", "Database" and "Monitoring/Logging". The split is done to make each of the services scale able independently of each other, even though they are dependent on each other to form a complete system.
+
+\todo{Image of servers}
+
+
+\subsection{Design of the ITU-MiniTwit system}
+
+\subsection{Architecture of the ITU-MiniTwit system}
+
+\subsection{Dependencies of the ITU-MiniTwit system}
+% All dependencies of your ITU-MiniTwit systems on all levels of abstraction and development stages.
+%That is, list and briefly describe all technologies and tools you applied and depend on.
+Use tools from week 2-3
+We have different dependencies: Golang packages, docker images, Grafana dashboards maybe?
+Direct dependencies can be manually explained and everything above else can be gathered by tools.
+How much is made by us how much is made by others (giants).
+
+
+
+\subsection{Important interactions of subsystems}
+% Think that Helge should take over our spot. Crosslevels of abstractions like minitwit and the database.
+
+
+\subsection{Current state of the ITU-MiniTwit system}
+%Describe the current state of your systems, for example using results of static analysis and quality assessment systems.
+
+
+\subsection{Chosen project license}
+%Finally, describe briefly, if the license that you have chosen for your project is actually compatible with the licenses of all your direct dependencies.
+In order to decide on a project licence, we had to audit whether it would be compatible with the licenses in our direct dependencies. In our case, these dependencies were Go binaries and it was difficult to find a general-purpose licence scanner for our project (for example, the tool "scan-code", which was proposed by our guest lecturer, did not work in our case). However, after doing some research, we decided that "Lichen" would be the best option (we also tried out "GoLicence", but we couldn't make it work). As can be seen in issue 134\cite{issue134}, we used "Lichen" to count how many different direct licences our Go project contained. In total, our project contained 31 MIT, 6 Apache -2.0, 5 BSD-3-Clause and finally one BSD-2-Clause licence. Consequently, we choose an Apache-2.0 licence, since this is compatible with MIT, BSD-2 and 3-Clause. This decision stem from the fact that our project include Apache-2.0 licences and since Apache-2.0 is less permissive than MIT, BSD-2 and 3-Clause, we need to match the Apache-2.0 licence, which is more restrictive than the three aforementioned licences. As a final note, we also tried other scanning tools for licence detection, but these lie outside the scope of this chapter.
+% Syntes det er godt at nævne de værktøjer vi bruger til at nå frem til den data vi bruger til at bestemme lisens.
+
+
+%OBS: CHECK THAT:
+% all the weekly tasks (those listed in the schedule) you include the corresponding information.
+% All tech choices and decisions that we have made in the tasks at the end of each session has been documented 
