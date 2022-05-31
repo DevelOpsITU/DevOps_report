@@ -32,7 +32,7 @@ The 7. is the team's communication and secret sharing channel, which both contai
 \end{figure}
 
 % Identify threat sources
-\subsubsection{Identify threat sources}
+\subsubsection{Identify threat sources}\label{sec:Identify_threat_sources_subsection}
 \textbf{Minitwit Web Application Server} - A vulnerability assessment with tools was done, with several tools. The full report\cite{security_assesment_report} showed that we had several high risk threats. These threats include: 
 
 \begin{enumerate}
@@ -155,5 +155,12 @@ Alternatively setting up SSH connection or simply setup a VPN between the applic
 Setup rate limiting in the post message and login endpoints, will result in it becoming harder to do those attacks. Anti DDos solutions like proxying traffic through Cloudflare or use a CDN for static content, are also popular mitigation strategies.\cite{owasp_dos_mitigation }
 
 \textbf{Github as Code Version Control, \acrshort{scm}, project documentation and CI/CD provider (7)}
+There are several mechanisms that tries to automate secret detection like gitguardian\cite{gitguardian}, which uses git-hooks that can catch any secret leaking before committing or pushing leaking code. Running these scans and check, could be enforced by a company policy and don't have to run on each developer's machine. Other companies and the project's hosting provider DigitalOcean also scan open repositories, and tries to warn the owners, that a potential API key has been leaked.\cite{github_do_scanning_partner} The group even managed to receive an email from DigitalOcean, about leaking of the groups API key, at some point.  
 
 \textbf{Minitwit Web Application Server DoS or bruteforce (1)}
+As described in the \autoref{sec:Identify_threat_sources_subsection}, the SQL injection 
+
+
+
+
+
