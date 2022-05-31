@@ -19,7 +19,7 @@ jobs:
     - name: LaTeX Compile
       uses: xu-cheng/latex-action@v2
       with:
-        rool_file: main.tex
+        root_file: main.tex
     - name: Pdf upload
       run: |
         mkdir -p build
