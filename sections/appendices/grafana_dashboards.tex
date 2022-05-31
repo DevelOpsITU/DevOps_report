@@ -1,37 +1,80 @@
 \section{Grafana Dashboards}\label{app:grafana_dashboards}
 
+\textbf{Business Intelligence}
+This dashboard shows:
+\begin{itemize}
+    \item How many users are registered to the platform
+    \item How many messages have been posted
+    \item Who follows the most people
+    \item Who are followed by the most people
+    \item Who have posted the most messages.
+    \item What request id are the latest from the simulator
+\end{itemize}
 \begin{figure}[H]
     \centering
     \includegraphics[width = \linewidth]{images/monitoring/business_intelligence_1.png}
     \caption{Business Intelligence - Grafana (Source: Own image)}
+    \label{fig:grafana-dashboard-BusinessIntelligence}
+\end{figure}
+\newpage
+\textbf{Endpoints}
+This dashboard shows:
+\begin{itemize}
+    \item Different endpoints and their response times
+    \item The summery of different response codes and distributions.
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = \linewidth]{images/monitoring/Grafana-Endpoint.png}
+    \caption{Endpoints - Grafana (Source: Own image)}
+    \label{fig:grafana-dashboard-Endpoints}
 \end{figure}
 
+\textbf{Hosts/Instances}
+This dashboard shows:
+\begin{itemize}
+    \item Average (CPU, RAM, IO, Network) consumption.
+    \item Very detailed information about stats of the Linux host machine.
+\end{itemize}
 \begin{figure}[H]
     \centering
     \includegraphics[width = \linewidth]{images/monitoring/node_exporter_1.png}
     \caption{Node Exporter - Grafana (Source: Own image)}
+    \label{fig:grafana-dashboard-NodeExporter}
 \end{figure}
-
+\newpage
+\textbf{Simulator}
+This dashboard shows:
+\begin{itemize}
+    \item Errors that the simulator sees.
+\end{itemize}
 \begin{figure}[H]
     \centering
     \includegraphics[width = \linewidth]{images/monitoring/simulator_1.png}
     \caption{Simulator - Grafana (Source: Own image)}
+    \label{fig:grafana-dashboard-Simulator}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width = \linewidth]{images/monitoring/logging_1.png}
-    \caption{Logging - Grafana (Source: Own image)}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width = \linewidth]{images/monitoring/Grafana_Alerts.png}
-    \caption{Alerts - Grafana (Source: Own image)}
-\end{figure}
-
+\textbf{Heatmaps}
+This dashboard shows:
+\begin{itemize}
+    \item Heatmaps of error, ok and total request rate.
+\end{itemize}
 \begin{figure}[H]
     \centering
     \includegraphics[width = \linewidth]{images/monitoring/Grafana_Heatmaps.png}
     \caption{Heatmaps - Grafana (Source: Own image)}
+    \label{fig:grafana-dashboard-Heatmaps}
+\end{figure}
+\newpage
+\textbf{Alerts}
+This dashboard shows:
+\begin{itemize}
+    \item Alert activity
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = \linewidth]{images/monitoring/Grafana_Alerts.png}
+    \caption{Alerts - Grafana (Source: Own image)}
+    \label{fig:grafana-dashboard-Alerts}
 \end{figure}
