@@ -6,6 +6,14 @@
 
 \makeglossaries
 \begin{document}
+
+Characters\newline
+Introduction: \charactercount{sections/00_Introduction}\newline
+System: \charactercount{sections/01_SystemPerspective}\newline
+Process: \charactercount{sections/02_ProcessPerspective}\newline
+Lessons Learned: \charactercount{sections/03_LessonsLearnedPerspective}\newline
+\textit{Should be max 16800}
+
 \include{title}
 \input{sections/Glossary}
 
@@ -19,6 +27,9 @@
 
 \pagenumbering{arabic} % Add page numbering
 
+\input{sections/00_Introduction}
+\newpage
+
 \input{sections/01_SystemPerspective}
 \newpage
 
@@ -30,11 +41,12 @@
 
 
 \newpage
-\gls{meme}
 \newpage
 
 \nocite{*}
 \printglossary[type=\acronymtype]
+
+
 \printbibliography
 
 \newpage

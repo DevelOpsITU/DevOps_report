@@ -3,10 +3,15 @@
 \usepackage{graphicx}
 \usepackage[maxbibnames=99]{biblatex}
 \addbibresource{references.bib}
+\usepackage[table,xcdraw]{xcolor}
 \usepackage[english]{babel}
 \usepackage[toc,page]{appendix}
 \usepackage[toc,acronym,section]{glossaries} % Acronyms in a nice way
 \usepackage[colorinlistoftodos]{todonotes}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{csquotes}
 
 
 \usepackage[a4paper,
@@ -18,3 +23,10 @@
             footskip=.25in]{geometry}
             
 \usepackage{hyperref}
+
+% temp command for counting words
+\newcommand{\charactercount}[1]{
+\immediate\write18{
+    expr `texcount -1 -sum -merge #1.tex` + `texcount -1 -sum -merge -char #1.tex` - 1 
+    > chars.txt
+}\input{chars.txt}}
