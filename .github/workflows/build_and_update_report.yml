@@ -11,7 +11,7 @@ jobs:
       PARENT_REPOSITORY: 'DevelOpsITU/MiniTwit'
       CHECKOUT_BRANCH: 'docs'
       PR_AGAINST_BRANCH: 'docs'
-      OWNER: 'DevelOpsITU'
+      OWNER: 'Thomsen96'
     steps:
     - uses: actions/checkout@v2
       with:
