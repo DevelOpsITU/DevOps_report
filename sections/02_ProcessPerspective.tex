@@ -45,40 +45,35 @@ The team is organised with all members having equal authority. Project scope and
 Github Actions is used for CI. TravisCI was initially used, since this was well-documented and also separated the deployment from the codebase by not having everything at Github (see issue see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/58}{\#58}). However, as the free plan on TravisCI expired, CI chain was moved to Github actions, as developers were familiar with this, as well as Github actions providing a faster pipeline (mainly spinning up VM's) (see issue see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/117}{\#117}).\\
 
 \subsubsection{CI Chain}
-CI chain is setup according to the operation on branches (see issues see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/69}{\#69} and see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/117}{\#117}), such that: 
-\begin{itemize}
-    \item Pull request to dev
-    \begin{itemize}
-        \item Linting, build tests and system test
-    \end{itemize}
-    
-    \item Commit to dev (merge request accepted)
-    \begin{itemize}
-        \item Linting, build docker image, test docker image, publish with dev tag
-    \end{itemize}
-    
-    \item Commit to main (merge request accepted)
-    \begin{itemize}
-        \item Linting, build docker image, test docker image, publish with latest tag
-    \end{itemize}
-\end{itemize}
+CI chain is setup according to the operation on branches (see issues see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/69}{\#69} and see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/117}{\#117}), such as seen in \autoref{fig:CIChain}: 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/diagrams/CI_Chain.png}
+    \caption{Different GitHub actions}
+    \label{fig:CIChain}
+\end{figure}
+%\begin{itemize}
+%    \item Pull request to dev
+%    \begin{itemize}
+%        \item Linting, build tests and system test
+%    \end{itemize}
+%    
+%    \item Commit to dev (merge request accepted)
+%    \begin{itemize}
+%        \item Linting, build docker image, test docker image, publish with dev tag
+%    \end{itemize}
+%    
+%    \item Commit to main (merge request accepted)
+%    \begin{itemize}
+%        \item Linting, build docker image, test docker image, publish with latest tag
+%    \end{itemize}
+%\end{itemize}
 
+An example of the "pull request to dev" CI run can be seen at GitHub \cite{ci_run_example_1}.
+The Linting tools used are Go lint\cite{golinter.sh}, for linting the application code, Shellcheck \cite{shellchecker.sh}, for linting all scripts. After Linting and testing, scancode \cite{scancode_dockerfile}, scans for licenses, however, the result is not actually used, since it has been commented out in the yml file\cite{pullreq_to_dev_yml}. For the other chains if everything passes, a docker image is build, linted using hadolint\cite{hadolint} and released. \\
 
-Example of a CI run \cite{ci_run_example_1}: 
-\begin{itemize}
-    \item LintAndTest
-    \begin{itemize}
-        \item Go lint \cite{golinter.sh}
-        \item Shellcheck \cite{shellchecker.sh}
-        \item Go unit tests 
-    \end{itemize}
-    \item Scancode \cite{scancode_dockerfile}
-        However, the result is not actually used, since it has been commented out in the yml file\cite{pullreq_to_dev_yml}
-  
-    % Also, see https://github.com/DevelOpsITU/MiniTwit/wiki/Information-gathered-from-code-analysis-tools for results gathered by these tools
-    
-    \item Docker file linting, building and releasing
-\end{itemize}
+Besides these GitHub actions Sonarcloud is setup to run static analysis of the changes, and describe if code has become worse with the pull-request. Git Guardian, also checks for vul
+
 
 %Code linting, code analysis, vulnerability checks (see issue see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/113}{\#113})
 %SonarCloud (see issue see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/114}{\#114}). 
@@ -88,27 +83,37 @@ Example of a CI run \cite{ci_run_example_1}:
 %- That is, either the structure of of mono-repository or organization of artifacts across repositories.
 %- In essence, it has to be be clear what is stored where and why.
 
-The project is split up into three repositories.
+the project is split up into three repositories.
 \begin{itemize}
-    \item Minitwit (Main Application)
-    \item MiniTwitDevelopment (Docker containers for use in development environment)
-    \item ServerDeployment (Files for setup and maintenance of server applications)
+    \item minitwit (main application)
+    \item minitwitdevelopment (docker containers for use in development environment)
+    \item serverdeployment (files for setup and maintenance of server applications)
 \end{itemize}
 \cite{contributing.md}
 
 \subsection{Applied branching strategy}
-\begin{table}[H]
+\begin{table}[h]
 \begin{tabular}{|
->{\columncolor[HTML]{FFFFFF}}l |
->{\columncolor[HTML]{FFFFFF}}l |}
+>{\columncolor[HTML]{ffffff}}l |
+>{\columncolor[HTML]{ffffff}}l |}
 \hline
-main & \begin{tabular}[c]{@{}l@{}}Used as base branch, from which releases are created. \\ This must always be buildable and runnable.\end{tabular}                                                                                                    \\ \hline
-dev  & \begin{tabular}[c]{@{}l@{}}Used for development. \\ This must always be buildable and runnable. \\ Every branch (except main) is derived from this branch.\end{tabular}                                                                         \\ \hline
-*    & \begin{tabular}[c]{@{}l@{}}Branches derived from dev have the following templates, depending on the issue's topic:\\ - features/\#(ISSUEID)-(ISSUE\_TITLE / RELEVANT\_TITLE)\\ - bugs/\#(ISSUEID)-(ISSUE\_TITLE / RELEVANT\_TITLE)\end{tabular} \\ \hline
+main & \begin{tabular}[c]{@{}l@{}}used as base branch, from which releases are created. \\ this must always be buildable and runnable.\end{tabular}                                                                                                    \\ \hline
+dev  & \begin{tabular}[c]{@{}l@{}}used for development. \\ this must always be buildable and runnable. \\ every branch (except main) is derived from this branch.\end{tabular}                                                                         \\ \hline
+*    & \begin{tabular}[c]{@{}l@{}}branches derived from dev have the following templates, depending on the issue's topic:\\ - features/\#(issueid)-(issue\_title / relevant\_title)\\ - bugs/\#(issueid)-(issue\_title / relevant\_title)\end{tabular} \\ \hline
 \end{tabular}
-\caption{Branching Strategy \cite{contributing.md}}
+\caption{branching strategy \cite{contributing.md}}
 \label{tab:branching_strategy}
 \end{table}
+
+An example of the branching strategy applied, can be seen on \autoref{fig:github_network_graph}, where the green, purple and yellow all are feature branches. They are all branched out from the dev branch, and any merge conflicts should be handled in the feature branch, before doing a pull request back to dev. The same should apply for 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{images/diagrams/github_screenshots/github_network_graph.jpg}
+    \caption{Github network flow graph from late March to mid April}
+    \label{fig:github_network_graph}
+\end{figure}
+
 
 
 \subsection{Applied development process}
@@ -117,7 +122,9 @@ dev  & \begin{tabular}[c]{@{}l@{}}Used for development. \\ This must always be b
 
 For issues, Github's own issue management is used. Most issues are created and managed in \textit{MiniTwit} repository for simplified structure and readability. Issues are then assigned to individual members, whom are responsible for the issue (with assistance from other team members). \\
 Commits are expected to happen regularly and to be descriptive. The commits' subject is limited to 50 chars, with few exceptions. Large commits are to be described in bulletpoints. \\
-Pull-requests are to not be reviewed by the author himself, but by one more more team members. \cite{contributing.md} \\
+Pull-requests are to not be reviewed by the author himself, but by one more team members. \cite{contributing.md} \\
+
+
 
 
 
@@ -125,23 +132,35 @@ Pull-requests are to not be reviewed by the author himself, but by one more more
 \subsection{Monitoring of MiniTwit}
 %How do you monitor your systems and what precisely do you monitor?
 
-To monitor Minitwit, Prometheus and Grafana are used. They are both monitoring systems, however they have different options that allows for indepth monitoring. \\
-Prometheus is mainly used due to: (see issue see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/99}{\#99})
+To monitor MiniTwit is the visualisation tool Grafana used. Grafana can pull data from various sources and display it on dashboards, which can have different focuses. The reasons to choose Grafana can be found in issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/100}{\#100} and are summarized here below:
+
+\begin{itemize}
+    \item Free
+    \item Previous experience
+    \item Extensive documentation
+    \item Integrates well with many different data sources
+    \item Works well with Loki\footnote{will be described later}
+\end{itemize} 
+
+
+To gather data from different services have Prometheus been deployed, its a tool that pulls data from services that offers a /metrics endpoint. The reason for why Prometheus have been chosen can be found in \href{https://github.com/DevelOpsITU/MiniTwit/issues/99}{\#99} and is summarised here below:
+
 \begin{itemize}
     \item Free
     \item Previous experience
     \item Extensive documentation 
+    \item Many library \gls{api} interactions
     \item Integrates well with Grafana
 \end{itemize} 
-Grafana is mainly used due to: (see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/100}{\#100})
-\begin{itemize}
-    \item Prometheus is not rich in visualisation options, thus needed a better solution for this
-    \item Free
-    \item Previous experience
-    \item Extensive documentation
-    \item Integrates well with Prometheus
-    \item Works well with Loki\footnote{will be described later}
-\end{itemize} 
+
+\begin{figure}[!ht]
+    \centering
+    \captionsetup{justification=centering,margin=1cm}
+    \includegraphics[width=80mm]{images/image-placeholder.jpg}
+    \caption{Grafana and Prometheus data sourcing process. (Source: own image)}
+    \label{fig:Grafana_Data_Sourcing}
+\end{figure}
+
 
 Monitoring is used to provide information about: Business Intelligence, Endpoints, Simulator and Logging. (See Appendix \ref{app:grafana_dashboards} for visual of graphs and described in issues: \href{https://github.com/DevelOpsITU/MiniTwit/issues/103}{\#103},  \href{https://github.com/DevelOpsITU/MiniTwit/issues/121}{\#121},
 \href{https://github.com/DevelOpsITU/MiniTwit/issues/124}{\#124},
