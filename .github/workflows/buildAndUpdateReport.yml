@@ -2,6 +2,7 @@ name: Build and Update Report
 on: 
   push: 
     branches: [ main ]
+    paths-ignore: ['**.pdf']
 
 jobs:
   build-and-update-report:
