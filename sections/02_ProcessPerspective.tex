@@ -1,4 +1,4 @@
-    \section{Process' perspective}
+\section{Process' perspective}
 
 % Taken from: https://github.com/itu-devops/lecture_notes/blob/39aaac80478c8f90870269760864ff32c23b5cce/REPORT.md
 % OBS: THIS IS THE REPORT TEMPLATE FROM LAST YEAR
@@ -25,7 +25,7 @@
 % In essence it has to be clear how code or other artifacts come from idea into the running system and everything that happens on the way.
 
 \subsection{Interaction as developers}
-Communication and interaction between team members have been moderately split between informal, formal, synchronous and asynchronous communication throughout the entire course. Initially Microsoft Teams and Github issues were used. As we later experience Microsoft Teams to not be sufficient and fitting for the team, we moved to using Discord instead of Microsoft Teams.
+Communication and interaction between team members have been moderately split between informal, formal, synchronous and asynchronous communication throughout the entire course. Initially Microsoft Teams and Github issues were used. As the group later experienced Microsoft Teams to not be sufficient and fitting for the team, the group moved to using Discord instead of Microsoft Teams.
 
 
 
@@ -37,15 +37,15 @@ Communication and interaction between team members have been moderately split be
 %Regarding the social atmosphere in the group, it can easily be said that we have high psychological safety, in the sense that team members are not afraid to speak up and voice their opinions. In general, this made the process much more fun and interactive and also contributed to a more solid teamwork and project. The main ethic behind delivering code and generally working on the project is full transparency, i.e it should be easy to continue to work on tasks that are not yet finished. This was mainly accomplished by documenting the work done on the issue at hand, but also through the weekly team meetings.
 
 \subsection{Team organisation}
-The team is organised with all members having equal authority. Project scope and project requirements are set by Helge and Mircea, as well as extra needs requested by the group. 
+The team is organised with all members having equal authority. Project scope and project requirements are set by professors Helge and Mircea, as well as extra needs requested by the group. 
 
 \subsection{Description of CI/CD chains}
 %A complete description of stages and tools included in the CI/CD chains
 %- That is, including deployment and release of your systems.
-Github Actions is used for CI. TravisCI was initially used, since this was well-documented and also separated the deployment from the codebase by not having everything at Github (see issue see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/58}{\#58}). However, as the free plan on TravisCI expired, the CI chain was moved to Github actions, as developers were familiar with this, as well as Github actions providing a faster pipeline (mainly spinning up VM's) (see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/117}{\#117}).\\
+GitHub Actions is used as CI. TravisCI was initially used, since this was well-documented and also separated the deployment from the codebase by not having everything at GitHub (see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/58}{\#58}). However, as the free plan on TravisCI expired, the CI chain was moved to GitHub actions, as developers were familiar with this, as well as GitHub actions providing a faster pipeline (mainly spinning up VM's) (see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/117}{\#117}).\\
 
 \subsubsection{CI Chain}
-CI chain is setup according to the operation on branches (see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/69}{\#69} and see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/117}{\#117}), such as seen in \autoref{fig:CIChain}: 
+The CI chain is set up according to the operation on branches (see issues \href{https://github.com/DevelOpsITU/MiniTwit/issues/69}{\#69} and \href{https://github.com/DevelOpsITU/MiniTwit/issues/117}{\#117}), such as seen in \autoref{fig:CIChain}: 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{images/diagrams/CI_Chain.png}
@@ -69,10 +69,10 @@ CI chain is setup according to the operation on branches (see issue \href{https:
 %    \end{itemize}
 %\end{itemize}
 
-An example of the "pull request to dev" CI run can be seen at GitHub \cite{ci_run_example_1}.
-The Linting tools used are Go lint\cite{golinter.sh}, for linting the application code, Shellcheck \cite{shellchecker.sh}, for linting all scripts. After Linting and testing, scancode \cite{scancode_dockerfile}, scans for licenses, however, the result is not actually used, since it has been commented out in the yml file\cite{pullreq_to_dev_yml}. Another commented out "job" is the docker image scan, which as described in \href{https://github.com/DevelOpsITU/MiniTwit/issues/117}{\#117}. For the other chains if everything passes, a docker image is build, linted using hadolint\cite{hadolint} and released. \\
+An example of the "pull request to dev" CI run can be seen on GitHub \cite{ci_run_example_1}.
+The Linting tools used are Go lint\cite{golinter.sh} for linting the application code and Shellcheck \cite{shellchecker.sh} for linting all scripts. After Linting and testing, scancode \cite{scancode_dockerfile} scans for licenses, however, the result is not actually used, since it has been commented out in the yml file\cite{pullreq_to_dev_yml}. Another commented out "job" is the docker image scan, which is described in \href{https://github.com/DevelOpsITU/MiniTwit/issues/117}{\#117}. For the other chains, if everything passes, a docker image is built, linted using hadolint\cite{hadolint} and released. \\
 
-Besides these GitHub actions SonarCloud is setup to run static analysis of the changes, and describe if code has become worse with the pull-request. Git Guardian, also checks for vulnerabilities, leaked passwords etc.
+Besides these GitHub actions, SonarCloud is set up to run static analysis of the changes, and describe if code has become worse with the pull-request. Git Guardian, also checks for vulnerabilities, leaked passwords etc.
 
 
 %Code linting, code analysis, vulnerability checks (see issue see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/113}{\#113})
@@ -85,9 +85,9 @@ Besides these GitHub actions SonarCloud is setup to run static analysis of the c
 
 The project is split up into three repositories.\cite{contributing.md}
 \begin{itemize}
-    \item minitwit (main application)
-    \item minitwitdevelopment (docker containers for use in development environment)
-    \item serverdeployment (files for setup and maintenance of server applications)
+    \item \textbf{Minitwit:} Main application
+    \item \textbf{ServerDeployment:} Files for setup and maintenance of server applications
+    \item \textbf{DataScraper:} Application that scrapes the simulator status page
 \end{itemize}
 
 
@@ -105,7 +105,7 @@ dev  & \begin{tabular}[c]{@{}l@{}}used for development. \\ this must always be b
 \label{tab:branching_strategy}
 \end{table}
 
-An example of the branching strategy applied, can be seen on \autoref{fig:github_network_graph}, where the green, purple and yellow all are feature branches. They are all branched out from the dev branch, and any merge conflicts should be handled in the feature branch, before doing a pull request back to dev.
+An example of the branching strategy applied, can be seen on\autoref{fig:github_network_graph}, where the green, purple and yellow all are feature branches. They are all branched out from the dev branch, and any merge conflicts should be handled in the feature branch, before doing a pull request back to dev.
 
 \begin{figure}[H]
     \centering
@@ -120,9 +120,9 @@ An example of the branching strategy applied, can be seen on \autoref{fig:github
 %Applied development process and tools supporting it
 %- For example, how did you use issues, Kanban boards, etc. to organize open tasks
 
-For issues, Github's own issue management is used. Most issues are created and managed in \textit{MiniTwit} repository for simplified structure and readability. Issues are then assigned to individual members, whom are responsible for the issue (with assistance from other team members). \\
+For issues, GitHub's own issue management is used. Most issues are created and managed in \textit{MiniTwit} repository for simplified structure and readability. Issues are then assigned to individual members, who are responsible for the issue (with assistance from other team members). \\
 Commits are expected to happen regularly and to be descriptive. The commits' subject is limited to 50 chars, with few exceptions. Large commits are to be described in bulletpoints. \\
-Pull-requests are to not be reviewed by the author himself, but by one more team members. \cite{contributing.md} \\
+Pull-requests are to not be reviewed by the author, but by another team member. \cite{contributing.md} \\
 
 
 
@@ -132,28 +132,27 @@ Pull-requests are to not be reviewed by the author himself, but by one more team
 \subsection{Monitoring of MiniTwit}
 %How do you monitor your systems and what precisely do you monitor?
 
-To monitor MiniTwit is the visualisation tool Grafana used. Grafana can pull data from various sources and display it on dashboards, which can have different focuses. The reasons to choose Grafana can be found in issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/100}{\#100} and are summarized here below:
+To monitor MiniTwit the visualisation tool Grafana is used. Grafana can pull data from various sources and display it on various dashboards. The reasons for choosing Grafana can be found in issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/100}{\#100} and is summarised below:
 
 \begin{itemize}
     \item Free
     \item Previous experience
     \item Extensive documentation
     \item Integrates well with many different data sources
-    \item Works well with Loki\footnote{will be described later}
+    \item Works well with Loki \autoref{sec:logging}
 \end{itemize} 
 
-
-To gather data from different services have Prometheus been deployed, its a tool that pulls data from services that offers a /metrics endpoint. The reason for why Prometheus have been chosen can be found in \href{https://github.com/DevelOpsITU/MiniTwit/issues/99}{\#99} and is summarised here below:
+To gather data from different services Prometheus has been deployed. Prometheus is a tool that pulls data from services that offer a /metrics endpoint and serves the data as a time-series for clients like Grafana. The reason for our choice of Prometheus is described in issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/99}{\#99}, and is summarised below:
 
 \begin{itemize}
     \item Free
     \item Previous experience
     \item Extensive documentation 
-    \item Many library \gls{api} interactions
+    \item Many library \gls{api} integrations
     \item Integrates well with Grafana
 \end{itemize} 
 
-The process and flow of data can be seen in \autoref{fig:Grafana_Data_Sourcing}. The users query Grafana which then queries both, or Prometheus and PostgreSQL. Prometheus continuously pulls data from the different servers and applications, which provides a metric endpoint. 
+The process and flow of data can be seen in\autoref{fig:Grafana_Data_Sourcing}. The users query Grafana which then queries Prometheus, PostgreSQL or both. Prometheus continuously pulls data from the different servers and applications, which provide a metric endpoint. 
 
 \begin{figure}[!ht]
     \centering
@@ -164,32 +163,67 @@ The process and flow of data can be seen in \autoref{fig:Grafana_Data_Sourcing}.
 \end{figure}
 
 
-Monitoring is used to provide information about: Business Intelligence, Endpoints, Server instances and the Simulator. (See Appendix \ref{app:grafana_dashboards} for visual of graphs and described in issues: \href{https://github.com/DevelOpsITU/MiniTwit/issues/103}{\#103},  \href{https://github.com/DevelOpsITU/MiniTwit/issues/121}{\#121},
-\href{https://github.com/DevelOpsITU/MiniTwit/issues/124}{\#124},
-\href{https://github.com/DevelOpsITU/MiniTwit/issues/126}{\#126} and 
-\href{https://github.com/DevelOpsITU/MiniTwit/issues/151}{\#151})\\
-\todo{heatmaps (issue 135)}
+Monitoring is used to provide information about: Business Intelligence, Endpoints, Server instances, and the Simulator. 
 
-All monitoring information can be viewed at three endpoints: \textit{grafana.thomsen-it.dk}, \textit{prometheus.thomsen-it.dk} and \textit{monitoring.thomsen-it.dk} (See issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/105}{\#105}).
-\todo{Maybe find newer photos of updated dashboards}
+All dashboards can be seen in\autoref{app:grafana_dashboards}, with associated descriptions of panels. Grafana contains the following dashboards:
 
-As a combination with the monitoring system, alerts are set up via discord to notify of severe changes in data. Currently only Disk space, Ram usage, Response time and significant increase in Errors are setup with alerts (see issue see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/150}{\#150}).
+\begin{itemize}
+    \item \textbf{Business intelligence (\autoref{fig:grafana-dashboard-BusinessIntelligence}):} About how the product is evolving.
+    \item \textbf{Endpoints (\autoref{fig:grafana-dashboard-Endpoints}):} Performance measures of response times and return codes.
+    \item \textbf{NodeExporter (\autoref{fig:grafana-dashboard-NodeExporter}):} CPU, RAM, Disc, Network usage of hosts/instances.
+    \item \textbf{Simulator (\autoref{fig:grafana-dashboard-Simulator}):} Error rates scraped from the simulator.
+    \item \textbf{Heatmaps (\autoref{fig:grafana-dashboard-Heatmaps}):} Time of day and week that service is used.
+\end{itemize}
 
+\subsection{Logging of MiniTwit}\label{sec:logging}
+% What do you log in your systems and how do you aggregate logs?
 
-\subsection{Logging of MiniTwit}
-%What do you log in your systems and how do you aggregate logs?
-Logging of the application follows the structure: \\
-$\{"level":"info","time":"2022-03-04T16:48:07Z",\\"message":"Starting\: MiniTwit\: application\: startup\: checks"\}$ (See appendix \ref{app:logging_structure} and issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/90}{\#90}).\\
+To move logs from different hosts to a centralised server the group uses fluentd\cite{fluentd}/fluentbit\cite{fluentbit}. To store the logs and cross-reference them the team chose the service Loki \cite{grafana_loki}. Loki is developed by Grafana Labs and has a decent amount of documentation \cite{grafana_loki_docs}. This results in the structure and design seen in \autoref{fig:logflow}.
 
-For logging we use Loki, which is a log aggregation system, that is inspired by Prometheus\cite{grafana_loki}\cite{grafana_loki_docs}. Since it is inspired by Prometheus and also started at Grafana Labs, it integrated well with Grafana, aswell as developers already having experience with Prometheus from previous and current project. 
+\begin{figure}[!ht]
+    \centering
+    \captionsetup{justification=centering,margin=1cm}
+    \includegraphics[width=120mm]{images/logging/LogFlow.png}
+    \caption{Flow of logs in the system}
+    \label{fig:logflow}
+\end{figure}
+
+To better index and search in the logs from the application, structured logging was applied to the application \href{https://github.com/DevelOpsITU/MiniTwit/issues/90}{\#90} which can be seen in \autoref{lst:structuredLog}. 
+\begin{lstlisting}[caption={Example log of the MiniTwit application},label={lst:structuredLog},captionpos=b]
+{
+    "level":"info",
+    "time":"2022-03-04T16:48:07Z",
+    "message":"Starting: MiniTwit: application: startup: checks"
+}
+\end{lstlisting}
+
+The logging structure of the application can be seen in \autoref{fig:loggingStructure} and \autoref{app:logging_structure}.  \autoref{fig:grafana-dashboard-Logging} shows the view from the log browser in Grafana.
+
+\subsection{Alerting}
+As a combination with the monitoring system, alerts are set up via Discord to notify the group about severe changes in data. Currently only disk space, ram usage, response time and significant increase in errors are setup with alerts (see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/150}{\#150} and also visible in \autoref{fig:grafana-dashboard-Alerts} in appendix \ref{app:grafana_dashboards}.
+When set thresholds were exceeded, when no data was received, and when metrics fell back into the acceptable state, alerts were sent on Discord. The Discord alerts can be seen in \autoref{fig:DiscordAlerts}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/monitoring/alert_messages.png}
+    \caption{Discord alert messages.}
+    \label{fig:DiscordAlerts}
+\end{figure}
 
 \subsection{Security assessment}
 % Christian
 %Brief results of the security assessment.
-In lecture 9, the group were tasked with doing a security assessment with pentesting tools, which resulted in the work described in \autoref{app:security_ass} and in the Minitwit Github repo's wiki.\cite{github_wiki_security} The result indicates that the group still has some work to do on the security of the application, postgres server setup and a possible change of the development workflow. 
+In lecture 9, the group were tasked with doing a security assessment with pen-testing tools, which resulted in the work described in \autoref{app:security_ass} and in the Minitwit Github repo's wiki.\cite{github_wiki_security} The result indicates that the group still has some work to do on the security of the application, Postgres server setup and a possible change of the development workflow. 
 
 
 \subsection{Applied strategy for scaling and load balancing}
 The application server is scaled by having two application servers hosted. To manage these two, a load balancer is setup up to direct traffic between them (see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/175}{\#175}. \\
-The use of load balancer and two application servers also supplies the purpose of blue green deployment, such that one server at a time can be taken down, updated and put back online. This guarantees that at least one server will be active at all times.  \cite{blue_green_deployment}.
+The use of load balancer and two application servers also serves the purpose of blue green deployment, such that one server at a time can be taken down, updated and put back online. This guarantees that at least one server will be active at all times \cite{blue_green_deployment}. The blue green deployment for our system is depicted in figure \ref{fig:LoadBalancer}.
+
+\begin{figure}[!ht]
+    \centering
+    \captionsetup{justification=centering,margin=1cm}
+    \includegraphics[width=150mm]{images/diagrams/load_balancer.drawio.png}
+    \caption{Blue green deployment with load balancer}
+    \label{fig:LoadBalancer}
+\end{figure}
 
