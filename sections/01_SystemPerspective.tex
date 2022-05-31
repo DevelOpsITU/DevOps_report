@@ -89,8 +89,6 @@ For hosting, provisioning and management of VM's, the group choose to use Vagran
 Lastly the group depend on Github both for version control and Github Action for Continuous Integration and pushing to Dockerhub.
 
 
-test
-
 \subsection{Important interactions of subsystems}
 % Think that Helge should take over our spot. Crosslevels of abstractions like minitwit and the database.
 Figure \ref{fig:interactions} shows the interactions between different services, the developer and the user. Code is developed on individual developer's computers and is pushed and pulled from and to the different GitHub repositories. From a configured CI pipeline code is pulled from the Minitwit repository, tested and build into docker images, uploaded to Docker Hub. The developer manually runs scripts from the ServerDeployment repository to update the droplets in Digital Ocean.\\
