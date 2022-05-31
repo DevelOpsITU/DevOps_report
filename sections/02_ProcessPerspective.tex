@@ -72,7 +72,7 @@ CI chain is setup according to the operation on branches (see issues see issue \
 An example of the "pull request to dev" CI run can be seen at GitHub \cite{ci_run_example_1}.
 The Linting tools used are Go lint\cite{golinter.sh}, for linting the application code, Shellcheck \cite{shellchecker.sh}, for linting all scripts. After Linting and testing, scancode \cite{scancode_dockerfile}, scans for licenses, however, the result is not actually used, since it has been commented out in the yml file\cite{pullreq_to_dev_yml}. For the other chains if everything passes, a docker image is build, linted using hadolint\cite{hadolint} and released. \\
 
-Besides these GitHub actions Sonarcloud is setup to run static analysis of the changes, and describe if code has become worse with the pull-request. Git Guardian, also checks for vul
+Besides these GitHub actions SonarCloud is setup to run static analysis of the changes, and describe if code has become worse with the pull-request. Git Guardian, also checks for vulnerabilities, leaked passwords etc.
 
 
 %Code linting, code analysis, vulnerability checks (see issue see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/113}{\#113})
@@ -83,13 +83,13 @@ Besides these GitHub actions Sonarcloud is setup to run static analysis of the c
 %- That is, either the structure of of mono-repository or organization of artifacts across repositories.
 %- In essence, it has to be be clear what is stored where and why.
 
-the project is split up into three repositories.
+The project is split up into three repositories.\cite{contributing.md}
 \begin{itemize}
     \item minitwit (main application)
     \item minitwitdevelopment (docker containers for use in development environment)
     \item serverdeployment (files for setup and maintenance of server applications)
 \end{itemize}
-\cite{contributing.md}
+
 
 \subsection{Applied branching strategy}
 \begin{table}[h]
@@ -105,7 +105,7 @@ dev  & \begin{tabular}[c]{@{}l@{}}used for development. \\ this must always be b
 \label{tab:branching_strategy}
 \end{table}
 
-An example of the branching strategy applied, can be seen on \autoref{fig:github_network_graph}, where the green, purple and yellow all are feature branches. They are all branched out from the dev branch, and any merge conflicts should be handled in the feature branch, before doing a pull request back to dev. The same should apply for 
+An example of the branching strategy applied, can be seen on \autoref{fig:github_network_graph}, where the green, purple and yellow all are feature branches. They are all branched out from the dev branch, and any merge conflicts should be handled in the feature branch, before doing a pull request back to dev.
 
 \begin{figure}[H]
     \centering
@@ -153,10 +153,12 @@ To gather data from different services have Prometheus been deployed, its a tool
     \item Integrates well with Grafana
 \end{itemize} 
 
+The process and flow of data can
+
 \begin{figure}[!ht]
     \centering
     \captionsetup{justification=centering,margin=1cm}
-    \includegraphics[width=80mm]{images/image-placeholder.jpg}
+    \includegraphics[width=120mm]{images/monitoring/MetricDataPulling.png}
     \caption{Grafana and Prometheus data sourcing process. (Source: own image)}
     \label{fig:Grafana_Data_Sourcing}
 \end{figure}
