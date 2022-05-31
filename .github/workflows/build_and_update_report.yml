@@ -1,2 +1,45 @@
 name: Build and Update Report
 on: 
+  push: 
+    branches: [ main ]
+
+jobs:
+  build-and-update-report:
+    name: submodule update
+    runs-on: ubuntu-latest
+    env:
+      PARENT_REPOSITORY: 'DevelOpsITU/MiniTwit'
+      CHECKOUT_BRANCH: 'main'
+      PR_AGAINST_BRANCH: 'main'
+      OWNER: 'DevelOpsITU'
+    steps:
+      - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GIT_TOKEN }}
+      - name: LaTeX Compile
+      uses: xu-cheng/latex-action@v2
+      with:
+        rool_file: main.tex
+      - name: Pdf upload
+      run: |
+        mkdir -p build
+        mv Main.pdf build/report.pdf
+        git config --global user.email ${{ secrets.USER_EMAIL}}
+        git config --global user.name ${{ secrets.USER_NAME }}
+        git add build/report.pdf
+        git commit -m "updated report.pdf"
+        git push
+        
+      ####################################
+      # Run the action against code base #
+      ####################################
+      #https://github.com/releasehub-com/github-action-create-pr-parent-submodule #
+      - name: run action
+        id: run_action
+        uses: releasehub-com/github-action-create-pr-parent-submodule@v1
+        with:
+          github_token: ${{ secrets.RELEASE_HUB_SECRET }}
+          parent_repository: ${{ env.PARENT_REPOSITORY }}
+          checkout_branch: ${{ env.CHECKOUT_BRANCH}}
+          pr_against_branch: ${{ env.PR_AGAINST_BRANCH }}
+          owner: ${{ env.OWNER }}
