@@ -13,14 +13,14 @@ jobs:
       PR_AGAINST_BRANCH: 'docs'
       OWNER: 'DevelOpsITU'
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
       with:
         token: ${{ secrets.GIT_TOKEN }}
-      - name: LaTeX Compile
+    - name: LaTeX Compile
       uses: xu-cheng/latex-action@v2
       with:
         rool_file: main.tex
-      - name: Pdf upload
+    - name: Pdf upload
       run: |
         mkdir -p build
         mv Main.pdf build/report.pdf
@@ -34,12 +34,12 @@ jobs:
       # Run the action against code base #
       ####################################
       #https://github.com/releasehub-com/github-action-create-pr-parent-submodule #
-      - name: run action
-        id: run_action
-        uses: releasehub-com/github-action-create-pr-parent-submodule@v1
-        with:
-          github_token: ${{ secrets.GIT_TOKEN }}
-          parent_repository: ${{ env.PARENT_REPOSITORY }}
-          checkout_branch: ${{ env.CHECKOUT_BRANCH}}
-          pr_against_branch: ${{ env.PR_AGAINST_BRANCH }}
-          owner: ${{ env.OWNER }}
+    - name: run action
+      id: run_action
+      uses: releasehub-com/github-action-create-pr-parent-submodule@v1
+      with:
+        github_token: ${{ secrets.GIT_TOKEN }}
+        parent_repository: ${{ env.PARENT_REPOSITORY }}
+        checkout_branch: ${{ env.CHECKOUT_BRANCH}}
+        pr_against_branch: ${{ env.PR_AGAINST_BRANCH }}
+        owner: ${{ env.OWNER }}
