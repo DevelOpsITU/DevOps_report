@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PARENT_REPOSITORY: 'DevelOpsITU/MiniTwit'
-      CHECKOUT_BRANCH: 'docs'
-      PR_AGAINST_BRANCH: 'docs'
+      CHECKOUT_BRANCH: 'main'
+      PR_AGAINST_BRANCH: 'main'
       OWNER: 'DevelOpsITU'
     steps:
     - uses: actions/checkout@v2
