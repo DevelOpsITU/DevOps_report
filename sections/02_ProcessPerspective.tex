@@ -42,10 +42,10 @@ The team is organised with all members having equal authority. Project scope and
 \subsection{Description of CI/CD chains}
 %A complete description of stages and tools included in the CI/CD chains
 %- That is, including deployment and release of your systems.
-Github Actions is used for CI. TravisCI was initially used, since this was well-documented and also separated the deployment from the codebase by not having everything at Github (see issue see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/58}{\#58}). However, as the free plan on TravisCI expired, CI chain was moved to Github actions, as developers were familiar with this, as well as Github actions providing a faster pipeline (mainly spinning up VM's) (see issue see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/117}{\#117}).\\
+Github Actions is used for CI. TravisCI was initially used, since this was well-documented and also separated the deployment from the codebase by not having everything at Github (see issue see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/58}{\#58}). However, as the free plan on TravisCI expired, the CI chain was moved to Github actions, as developers were familiar with this, as well as Github actions providing a faster pipeline (mainly spinning up VM's) (see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/117}{\#117}).\\
 
 \subsubsection{CI Chain}
-CI chain is setup according to the operation on branches (see issues see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/69}{\#69} and see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/117}{\#117}), such as seen in \autoref{fig:CIChain}: 
+CI chain is setup according to the operation on branches (see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/69}{\#69} and see issue \href{https://github.com/DevelOpsITU/MiniTwit/issues/117}{\#117}), such as seen in \autoref{fig:CIChain}: 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{images/diagrams/CI_Chain.png}
@@ -70,7 +70,7 @@ CI chain is setup according to the operation on branches (see issues see issue \
 %\end{itemize}
 
 An example of the "pull request to dev" CI run can be seen at GitHub \cite{ci_run_example_1}.
-The Linting tools used are Go lint\cite{golinter.sh}, for linting the application code, Shellcheck \cite{shellchecker.sh}, for linting all scripts. After Linting and testing, scancode \cite{scancode_dockerfile}, scans for licenses, however, the result is not actually used, since it has been commented out in the yml file\cite{pullreq_to_dev_yml}. For the other chains if everything passes, a docker image is build, linted using hadolint\cite{hadolint} and released. \\
+The Linting tools used are Go lint\cite{golinter.sh}, for linting the application code, Shellcheck \cite{shellchecker.sh}, for linting all scripts. After Linting and testing, scancode \cite{scancode_dockerfile}, scans for licenses, however, the result is not actually used, since it has been commented out in the yml file\cite{pullreq_to_dev_yml}. Another commented out "job" is the docker image scan, which as described in \href{https://github.com/DevelOpsITU/MiniTwit/issues/117}{\#117}. For the other chains if everything passes, a docker image is build, linted using hadolint\cite{hadolint} and released. \\
 
 Besides these GitHub actions SonarCloud is setup to run static analysis of the changes, and describe if code has become worse with the pull-request. Git Guardian, also checks for vulnerabilities, leaked passwords etc.
 
