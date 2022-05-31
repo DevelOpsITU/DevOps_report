@@ -109,8 +109,8 @@ An example of the branching strategy applied, can be seen on \autoref{fig:github
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{images/diagrams/github_screenshots/github_network_graph.jpg}
-    \caption{Github network flow graph from late March to mid April}
+    \includegraphics[scale=0.5]{images/diagrams/github_screenshots/github_network_graph_white.jpg}
+    \caption{Github network flow graph}
     \label{fig:github_network_graph}
 \end{figure}
 
@@ -153,7 +153,7 @@ To gather data from different services have Prometheus been deployed, its a tool
     \item Integrates well with Grafana
 \end{itemize} 
 
-The process and flow of data can
+The process and flow of data can be seen in \autoref{fig:Grafana_Data_Sourcing}. The users query Grafana which then queries both, or Prometheus and PostgreSQL. Prometheus continuously pulls data from the different servers and applications, which provides a metric endpoint. 
 
 \begin{figure}[!ht]
     \centering
@@ -164,7 +164,7 @@ The process and flow of data can
 \end{figure}
 
 
-Monitoring is used to provide information about: Business Intelligence, Endpoints, Simulator and Logging. (See Appendix \ref{app:grafana_dashboards} for visual of graphs and described in issues: \href{https://github.com/DevelOpsITU/MiniTwit/issues/103}{\#103},  \href{https://github.com/DevelOpsITU/MiniTwit/issues/121}{\#121},
+Monitoring is used to provide information about: Business Intelligence, Endpoints, Server instances and the Simulator. (See Appendix \ref{app:grafana_dashboards} for visual of graphs and described in issues: \href{https://github.com/DevelOpsITU/MiniTwit/issues/103}{\#103},  \href{https://github.com/DevelOpsITU/MiniTwit/issues/121}{\#121},
 \href{https://github.com/DevelOpsITU/MiniTwit/issues/124}{\#124},
 \href{https://github.com/DevelOpsITU/MiniTwit/issues/126}{\#126} and 
 \href{https://github.com/DevelOpsITU/MiniTwit/issues/151}{\#151})\\
